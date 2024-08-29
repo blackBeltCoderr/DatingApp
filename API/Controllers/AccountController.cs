@@ -4,6 +4,7 @@ using API.Data;
 using API.DTOs;
 using API.Interfaces;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,6 +40,7 @@ public class AccountController(DataContext dataContext, ITokenService tokenServi
     
     [HttpPost]
     [Route("login")]
+    [Authorize]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
         var user = await dataContext.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
